@@ -2,9 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 
-const apiRouter = require('./api/routes/index.routes');
+const { Router } = require('express');
 const errorHandler = require('./middlewares/error.middleware');
 
+function createApp(apiRouter = Router(), coresRouter = Router()) {
 const app = express();
 
 app.use(cors());
@@ -20,7 +21,20 @@ app.get('/health', (req, res) => {
   });
 });
 
+app.use('/api/v1/cores', coresRouter);
 app.use('/api/v1', apiRouter);
+app.use('/api/v1', (_req, res) => {
+  res.status(404).json({
+    error: {
+      code: 'RESOURCE_NOT_FOUND',
+      message: 'La ruta solicitada no existe',
+      details: []
+    }
+  });
+});
 app.use(errorHandler);
 
-module.exports = app;
+return app;
+}
+
+module.exports = { createApp };

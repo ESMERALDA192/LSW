@@ -1,0 +1,33 @@
+schema: spec-driven
+
+context: |
+  Proyecto académico LSW: microservicio Node.js/Express para administrar recursos
+  de inversión F0/F5, con persistencia seleccionable entre MongoDB y Supabase.
+  Escribe propuestas, especificaciones y tareas en español. El contrato de datos
+  compartido vive en src/models/definitions.js. La selección de base de datos es
+  configuración privada del servidor y nunca un valor suministrado por el cliente.
+  Evalúa la estructura existente en cada cambio; si no satisface los requisitos de
+  claridad, seguridad, consistencia o rendimiento, propone y genera una estructura
+  propia antes de modificar la implementación.
+
+  Cada metodología de inversión debe vivir en un core aislado bajo src/cores/{metodología}
+  y mantener su lógica de dominio independiente de los adaptadores de persistencia.
+
+rules:
+  proposal:
+    - Identifica el estado previo observado y distingue hechos de supuestos sobre su autoría.
+    - Incluye decisiones de estructura, seguridad y rendimiento que afecten a la API.
+  specs:
+    - Documenta rutas, métodos, parámetros, respuestas y errores observables por clientes.
+    - Escribe requisitos comprobables y conserva los nombres de recursos de definitions.js.
+  tasks:
+    - Divide el trabajo por entregables revisables y marca el estado real de cada tarea.
+
+operations:
+  apply:
+    guidance:
+      - Revisa si la estructura actual es adecuada; si no, adapta el diseño al dominio del proyecto.
+      - Resume validaciones ejecutadas y limitaciones de configuración externa.
+  archive:
+    guidance:
+      - Resume qué requisitos quedaron implementados y qué evidencia queda en el repositorio.
