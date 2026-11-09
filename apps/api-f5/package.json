@@ -1,0 +1,13 @@
+{
+  "name": "@diana/api-f5",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "5.3.0",
+    "@diana/domain": "0.1.0"
+  }
+}

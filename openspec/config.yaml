@@ -1,0 +1,106 @@
+schema: spec-driven
+
+context: |
+  Proyecto: DIANA Inversions.
+  Equipo: Equipo 3, Laboratorio de Servicios Web.
+  Tipo: arquitectura modular de APIs REST para cálculos financieros y simulación.
+  Idioma: español.
+
+  Fuentes de requisitos:
+  - Equipo_3_F0_F5_APIs_Docker_Alpaca.docx es la referencia principal del alcance del equipo.
+  - guia-academica-inversiones.zip aporta teoría y el método OpenSpec/SDD del capítulo 6.
+  - Las fuentes se consultaron desde Downloads; todavía no están incorporadas al repositorio.
+  - La guía describe otro repositorio de referencia; no asumir que su código, constitución,
+    dependencias, skills o comandos de pruebas existen en este proyecto.
+  - Distinguir requisitos, ejemplos del profesor, propuestas y decisiones aprobadas.
+
+  Alcance del Equipo 3:
+  - F0, Núcleo Cuantitativo: Black-Scholes-Merton para Call y Put europeas sin dividendos;
+    Delta, Gamma, Theta y Vega; validaciones y manejo especial del vencimiento inmediato.
+  - Rutas propuestas F0: POST /f0/black-scholes/call, POST /f0/black-scholes/put
+    y POST /f0/greeks. Entradas de ejemplo: spot, strike, time_years, rate y volatility.
+  - F5, Sistemas Complejos: analizar The Wheel, PMCC, Call Ratio Backspread (1:2)
+    y Gamma Scalping. Rutas propuestas: POST /f5/the-wheel/cost-basis
+    y POST /f5/pmcc/capital-savings.
+  - Backspread y Gamma Scalping no tienen contratos independientes definidos;
+    analizarlos no implica automatizar su ejecución.
+  - Breakeven y probabilidad forman parte del marco teórico; su exposición por API
+    requiere definir y aprobar el alcance, no agregar endpoints por inferencia.
+  - Integración externa Alpaca Paper Trading: GET /v2/account, GET /v2/clock,
+    POST /v2/orders para compra, GET /v2/positions y POST /v2/orders para venta.
+  - Diez operaciones HTTP de referencia en Postman: cinco locales y cinco de Alpaca.
+    Compra y venta comparten ruta; verificar además el estado de ejecución de las órdenes.
+  - Elegibilidad de empresas, confluencia y PWA no son entregables confirmados del Equipo 3.
+
+  Arquitectura prevista y decisiones pendientes:
+  - Stack confirmado por el usuario: React con JavaScript y organización por componentes
+    para la interfaz; Node.js con Express para las APIs REST F0 y F5.
+  - El alcance de las pantallas se definirá por separado; elegir React no incorpora
+    automáticamente los entregables PWA de la guía general.
+  - Servicios F0 y F5 en Docker, con Docker Compose; puertos de ejemplo 8000 y 8001.
+  - Supabase (PostgreSQL) en la nube para usuarios, permisos, estados de carteras
+    y configuraciones; MongoDB Atlas en la nube para logs, cálculos históricos
+    y eventos de rebalanceo.
+  - Alpaca es un servicio externo por HTTPS; no se instala dentro de Docker.
+  - Supabase y MongoDB Atlas son servicios externos a los contenedores locales.
+  - No asumir instaladas las dependencias del proyecto, Docker ni Postman.
+  - Antes de implementar F0, acordar contratos de respuesta, selección Call/Put en griegas,
+    unidades de Theta/Vega, precisión, errores y tratamiento de volatilidad cero y T = 0.
+
+  Reglas generales:
+  - Prioridad autorizada de planificación: demo-exposicion-f0-f5 para la exposición
+    del 9 de noviembre de 2026. React, F0, Wheel/PMCC y persistencia real en nube.
+  - Recorrido mínimo: crear escenario, calcular, guardar, recargar y consultar histórico.
+  - Docker y Alpaca quedan para etapas posteriores; no declarar completo el proyecto
+    académico al completar esta demo. Backspread y Gamma Scalping siguen pendientes.
+  - El usuario creará los recursos de nube. Indicar la ubicación local de las credenciales
+    al preparar la conexión, sin pedir secretos por chat. No implementar ni instalar
+    durante esta preparación documental; la implementación requiere aprobación posterior.
+  - Trabajar mediante especificaciones OpenSpec.
+  - Solicitar autorización antes de modificar archivos o instalar dependencias;
+    una autorización cubre únicamente el alcance acordado.
+  - Definir requisitos y escenarios y obtener aprobación antes de escribir código.
+  - Aplicar TDD: rojo, verde y refactorización, con evidencia real.
+  - Usar pruebas automatizadas determinísticas y offline con datos de prueba versionados.
+    Separar las comprobaciones de integración externas de las pruebas locales.
+  - Usar exclusivamente https://paper-api.alpaca.markets; nunca operar con dinero real.
+  - No enviar órdenes sin autorización explícita del usuario para la operación simulada.
+  - Mantener credenciales en variables de entorno o gestores de secretos;
+    no exponerlas en código, repositorios, logs, reportes ni capturas.
+  - Distinguir una orden aceptada de una ejecutada; verificar saldo, cantidades,
+    posiciones disponibles y restricciones antes de cualquier orden autorizada.
+  - No inventar requisitos financieros ni declarar verificaciones que no se ejecutaron.
+
+rules:
+  proposal:
+    - Explicar el problema y el objetivo.
+    - Identificar alcance, no objetivos, fuentes y decisiones pendientes del Equipo 3.
+    - Incluir impacto, riesgos de integración por etapa, plan de validación y reversión.
+  specs:
+    - Definir requisitos verificables con SHALL/MUST y escenarios GIVEN/WHEN/THEN.
+    - Usar encabezados Requirement y Scenario del formato OpenSpec; redactar en español.
+    - Especificar entradas, salidas, unidades, validaciones, casos límite y tolerancias numéricas.
+    - Mantener nombres de funciones y rutas de archivos de implementación en design, no en specs.
+  design:
+    - Documentar el estado real del repositorio y lo reutilizable antes de proponer código nuevo.
+    - Explicar arquitectura, contratos, archivos previstos, decisiones técnicas y alternativas.
+    - Respetar el stack confirmado de React/JavaScript, Node.js/Express, Supabase y MongoDB Atlas.
+    - Distinguir decisiones aprobadas de bibliotecas, versiones y herramientas aún por definir.
+    - Documentar observabilidad sin secretos y, si aplica, timeouts y manejo de fallos externos.
+  tasks:
+    - Dividir el cambio en aproximadamente diez tareas o menos, con resultados comprobables.
+    - Incluir pruebas de comportamiento antes de implementar funciones, siguiendo TDD.
+    - Incluir casos conocidos y pruebas determinísticas offline con datos versionados.
+    - Identificar comandos de validación disponibles; no asumir npm test ni lint:fic existentes.
+    - Incluir documentación FIC bilingüe en lógica crítica y su revisión durante la implementación.
+    - Planificar REPORT-DrFIC.md para el cambio activo y su actualización con evidencia real.
+
+operations:
+  apply:
+    guidance:
+      - Implementar únicamente dentro del alcance autorizado y con especificaciones aprobadas.
+      - Ejecutar las pruebas correspondientes y registrar el ciclo rojo, verde y refactorización.
+      - Marcar tareas terminadas solo con evidencia de ejecución; registrar pendientes y limitaciones.
+      - Mantener REPORT-DrFIC.md con resumen ejecutivo, diagrama C4, explicación técnica,
+        registro de tareas con fecha, hora y zona horaria, pruebas y riesgos de integración por etapa.
+      - No declarar un cambio cerrado sin revisión y aprobación humana.

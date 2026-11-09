@@ -1,0 +1,29 @@
+{
+  "name": "diana-inversions",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "dev:f0": "npm run dev --workspace @diana/api-f0",
+    "dev:f5": "npm run dev --workspace @diana/api-f5",
+    "dev:web": "npm run dev --workspace @diana/web",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "npm run build --workspace @diana/web"
+  },
+  "devDependencies": {
+    "@testing-library/react": "16.3.3",
+    "@testing-library/user-event": "14.6.8",
+    "jsdom": "31.0.0",
+    "supertest": "7.3.2",
+    "vitest": "5.1.0"
+  }
+}
