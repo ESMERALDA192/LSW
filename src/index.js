@@ -27,8 +27,23 @@ async function start() {
     throw new Error('DATABASE debe ser mongodb o supabase');
   }
 
-  const services = createInvestmentServices(models);
-  const app = createApp(createApiRouter(services), createWheelRouter(models));
+const services = createInvestmentServices(models);
+
+  const checkDBHealth = async () => {
+    try {
+      if (database === 'mongodb') {
+        return mongoose.connection.readyState === 1 ? 'OK' : 'DISCONNECTED';
+      } else if (database === 'supabase') {
+        const { error } = await supabase.from('positions').select('id').limit(1);
+        return error ? 'ERROR' : 'OK';
+      }
+    } catch (e) {
+      return 'ERROR';
+    }
+  };
+
+  const app = createApp(createApiRouter(services), createWheelRouter(models), checkDBHealth);
+
   const server = app.listen(PORT, () => {
     console.log(`[MICROSERVICIO F0-F5] Servidor iniciado en el puerto ${PORT}`);
     console.log(`[RUTA BASE] http://localhost:${PORT}/api/v1`);
