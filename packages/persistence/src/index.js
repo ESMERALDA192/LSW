@@ -1,2 +1,5 @@
-// Adaptadores de nube pendientes de las tareas 3.1 y 3.2.
-export {};
+// FIC: DIANA Inversions persistence module entrypoint.
+// FIC: Punto de entrada del módulo de persistencia DIANA Inversions.
+
+export { createSupabaseScenariosRepository } from './supabase-scenarios.js';
+export { createMongoHistoryRepository } from './mongo-history.js';

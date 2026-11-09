@@ -1,0 +1,189 @@
+{
+  "info": {
+    "name": "DIANA Inversions - Local Demo Collection",
+    "description": "Colección de pruebas de operaciones cuantitativas y persistencia para DIANA Inversions (Laboratorio de Servicios Web, Equipo 3).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. F0 - Black-Scholes Call",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"spot\": 100,\n  \"strike\": 100,\n  \"time_years\": 1,\n  \"rate\": 0.05,\n  \"volatility\": 0.2\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/f0/black-scholes/call",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["f0", "black-scholes", "call"]
+        }
+      }
+    },
+    {
+      "name": "2. F0 - Black-Scholes Put",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"spot\": 100,\n  \"strike\": 100,\n  \"time_years\": 1,\n  \"rate\": 0.05,\n  \"volatility\": 0.2\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/f0/black-scholes/put",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["f0", "black-scholes", "put"]
+        }
+      }
+    },
+    {
+      "name": "3. F0 - Griegas Analíticas",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"spot\": 100,\n  \"strike\": 100,\n  \"time_years\": 1,\n  \"rate\": 0.05,\n  \"volatility\": 0.2\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/f0/greeks",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["f0", "greeks"]
+        }
+      }
+    },
+    {
+      "name": "4. F5 - The Wheel Cost Basis",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"strike\": 490,\n  \"premium_collected\": 4.5\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8001/f5/the-wheel/cost-basis",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8001",
+          "path": ["f5", "the-wheel", "cost-basis"]
+        }
+      }
+    },
+    {
+      "name": "5. F5 - PMCC Capital Savings",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"stock_price\": 500,\n  \"leaps_premium\": 85\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8001/f5/pmcc/capital-savings",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8001",
+          "path": ["f5", "pmcc", "capital-savings"]
+        }
+      }
+    },
+    {
+      "name": "Auxiliar - Diagnóstico Almacenamiento",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://127.0.0.1:8000/storage/status",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["storage", "status"]
+        }
+      }
+    },
+    {
+      "name": "Auxiliar - Guardar Escenario F0 (Supabase)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"e3333333-3333-4333-8333-333333333333\",\n  \"name\": \"Escenario Postman Canónico\",\n  \"parameters\": {\n    \"spot\": 100,\n    \"strike\": 100,\n    \"time_years\": 1,\n    \"rate\": 0.05,\n    \"volatility\": 0.2\n  }\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/scenarios",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["scenarios"]
+        }
+      }
+    },
+    {
+      "name": "Auxiliar - Listar Escenarios F0 (Supabase)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://127.0.0.1:8000/scenarios",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["scenarios"]
+        }
+      }
+    },
+    {
+      "name": "Auxiliar - Guardar Histórico (MongoDB)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id\": \"f4444444-4444-4444-8444-444444444444\",\n  \"operation\": \"call\",\n  \"inputs\": {\n    \"spot\": 100,\n    \"strike\": 100,\n    \"time_years\": 1,\n    \"rate\": 0.05,\n    \"volatility\": 0.2\n  }\n}"
+        },
+        "url": {
+          "raw": "http://127.0.0.1:8000/history",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["history"]
+        }
+      }
+    },
+    {
+      "name": "Auxiliar - Listar Histórico (MongoDB)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://127.0.0.1:8000/history",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["history"]
+        }
+      }
+    }
+  ]
+}
+

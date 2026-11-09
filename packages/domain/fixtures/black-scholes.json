@@ -1,0 +1,115 @@
+{
+  "description": "Fixtures numéricos de referencia para valoración Black-Scholes-Merton europea sin dividendos.",
+  "source": "Hull - Options, Futures, and Other Derivatives y formulación analítica estándar con paridad Put-Call.",
+  "tolerance": {
+    "absolute": 0.00001,
+    "relative": 0.000001
+  },
+  "cases": [
+    {
+      "name": "canonical_reference",
+      "description": "Caso canónico de especificación (S=100, K=100, T=1, r=0.05, sigma=0.2)",
+      "inputs": {
+        "spot": 100.0,
+        "strike": 100.0,
+        "time_years": 1.0,
+        "rate": 0.05,
+        "volatility": 0.2
+      },
+      "expected": {
+        "call_price": 10.4505835722,
+        "put_price": 5.5735260223
+      }
+    },
+    {
+      "name": "immediate_expiration_itm_call",
+      "description": "Vencimiento inmediato T=0 con Call ITM (S=110, K=100)",
+      "inputs": {
+        "spot": 110.0,
+        "strike": 100.0,
+        "time_years": 0.0,
+        "rate": 0.05,
+        "volatility": 0.2
+      },
+      "expected": {
+        "call_price": 10.0,
+        "put_price": 0.0
+      }
+    },
+    {
+      "name": "immediate_expiration_itm_put",
+      "description": "Vencimiento inmediato T=0 con Put ITM (S=90, K=100)",
+      "inputs": {
+        "spot": 90.0,
+        "strike": 100.0,
+        "time_years": 0.0,
+        "rate": 0.05,
+        "volatility": 0.2
+      },
+      "expected": {
+        "call_price": 0.0,
+        "put_price": 10.0
+      }
+    },
+    {
+      "name": "immediate_expiration_atm",
+      "description": "Vencimiento inmediato T=0 en el dinero (S=100, K=100)",
+      "inputs": {
+        "spot": 100.0,
+        "strike": 100.0,
+        "time_years": 0.0,
+        "rate": 0.05,
+        "volatility": 0.2
+      },
+      "expected": {
+        "call_price": 0.0,
+        "put_price": 0.0
+      }
+    },
+    {
+      "name": "negative_interest_rate",
+      "description": "Tasa de interés negativa finita (S=100, K=100, T=1, r=-0.01, sigma=0.2)",
+      "inputs": {
+        "spot": 100.0,
+        "strike": 100.0,
+        "time_years": 1.0,
+        "rate": -0.01,
+        "volatility": 0.2
+      },
+      "expected": {
+        "call_price": 7.5130582436,
+        "put_price": 8.5180749526
+      }
+    },
+    {
+      "name": "in_the_money_call",
+      "description": "Call dentro del dinero ITM (S=120, K=100, T=0.5, r=0.03, sigma=0.25)",
+      "inputs": {
+        "spot": 120.0,
+        "strike": 100.0,
+        "time_years": 0.5,
+        "rate": 0.03,
+        "volatility": 0.25
+      },
+      "expected": {
+        "call_price": 21.9879628097,
+        "put_price": 0.4991567475
+      }
+    },
+    {
+      "name": "out_of_the_money_call",
+      "description": "Call fuera del dinero OTM (S=80, K=100, T=0.5, r=0.03, sigma=0.25)",
+      "inputs": {
+        "spot": 80.0,
+        "strike": 100.0,
+        "time_years": 0.5,
+        "rate": 0.03,
+        "volatility": 0.25
+      },
+      "expected": {
+        "call_price": 0.3674492792,
+        "put_price": 18.878643217
+      }
+    }
+  ]
+}

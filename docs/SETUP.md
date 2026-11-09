@@ -1,11 +1,11 @@
-# Preparación local de DIANA Inversions
+# Preparación local y ejecución de DIANA Inversions
 
-## Estado de la tarea 1.1
+## Estado del proyecto
 
-Están preparados npm workspaces, dos servidores Express independientes, una pantalla
-inicial React, el lanzador conjunto y las herramientas de pruebas. Los cálculos F0/F5,
-los formularios definitivos y los adaptadores de nube aún no están implementados.
-No se ejecuta ninguna operación financiera ni se conecta una base de datos.
+Están implementados los módulos de dominio cuantitativo F0 (Black-Scholes, validación y Griegas),
+las estrategias cuantitativas F5 (The Wheel y PMCC), la persistencia dual en la nube
+(Supabase PostgreSQL y MongoDB Atlas), la terminal financiera React con tema oscuro
+y el lanzador conjunto de desarrollo.
 
 ## Entorno comprobado
 
@@ -22,9 +22,9 @@ npm run dev
 
 | Servicio | Dirección | Estado actual |
 |---|---|---|
-| React | http://localhost:5173 | Pantalla de preparación |
-| API F0 | http://127.0.0.1:8000/ | JSON que identifica el servidor F0 |
-| API F5 | http://127.0.0.1:8001/ | JSON que identifica el servidor F5 |
+| React | http://localhost:5173 | Terminal Financiera DIANA |
+| API F0 | http://127.0.0.1:8000/ | Núcleo Cuantitativo F0 y Persistencia |
+| API F5 | http://127.0.0.1:8001/ | Estrategias Cuantitativas F5 |
 
 Dejar abierta la terminal. Ctrl+C detiene los procesos iniciados por el lanzador.
 Si un puerto está ocupado, se informa y se cancela el arranque; no se termina
@@ -38,10 +38,6 @@ npm run dev:f0
 npm run dev:f5
 npm run dev:web
 ```
-
-No ejecutar simultáneamente el arranque conjunto y el individual.
-Las rutas financieras, /health y las rutas de persistencia se añadirán en sus
-tareas posteriores; por ahora devolverán 404.
 
 ## Dependencias reproducibles
 
