@@ -1,0 +1,12 @@
+import { mkdirSync, existsSync, readFileSync, writeFileSync, renameSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { createApp } from './app.js';
+import { createSeed } from '../src/domain/seed.js';
+const directory = fileURLToPath(new URL('./data/', import.meta.url));
+const file = fileURLToPath(new URL('./data/database.json', import.meta.url));
+mkdirSync(directory, { recursive: true });
+const write = db => { writeFileSync(`${file}.tmp`, JSON.stringify(db, null, 2)); renameSync(`${file}.tmp`, file); };
+if (!existsSync(file)) write(createSeed());
+const read = () => JSON.parse(readFileSync(file, 'utf8'));
+const port = Number(process.env.PORT || 3001);
+createApp({ read, write }).listen(port, '127.0.0.1', () => console.log(`API local disponible en http://127.0.0.1:${port}/api/v1/security`));
